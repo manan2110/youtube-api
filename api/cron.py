@@ -1,4 +1,6 @@
 from django_cron import CronJobBase, Schedule
+
+# Google API
 from googleapiclient.discovery import build
 import apiclient
 from .models import *
@@ -16,6 +18,7 @@ class CallYoutubeApi(CronJobBase):
         apiKeys = settings.GOOGLE_API_KEYS
         time_now = datetime.now()
         last_request_time = time_now - timedelta(minutes=5)
+        # A variable to check if a valid api key exists or not
         valid = False
         for apiKey in apiKeys:
             try:
@@ -35,9 +38,11 @@ class CallYoutubeApi(CronJobBase):
                 code = err.resp.status
                 if not (code == 400 or code == 403):
                     break
+
             if valid:
                 break
         if valid:
+            ### CREATES AN OBJECT IN THE DB IF THERE IS A VALID API KEY AVAILABLE ###
             for item in res["items"]:
                 video_id = item["id"]["videoId"]
                 publishedDateTime = item["snippet"]["publishedAt"]

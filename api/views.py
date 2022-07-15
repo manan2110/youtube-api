@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import *
@@ -10,6 +11,10 @@ class ResultsPagination(CursorPagination):
     page_size = 25
     page_size_query_param = "page_size"
     max_page_size = 100
+
+
+# Searching is implemented using DRF Filters
+# DRF filter by default uses [icontains] and thus the search by default supports partial searches
 
 
 class YoutubeItems(generics.ListAPIView):
