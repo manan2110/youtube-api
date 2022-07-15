@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from .models import *
+from .serializers import *
 
-# Create your views here.
+from rest_framework import generics
+
+
+class YoutubeItems(generics.ListAPIView):
+    ordering = "-publishedDateTime"
+    queryset = Videos.objects.all()
+    serializer_class = VideosSerializer
