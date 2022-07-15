@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "api",
+    "django_cron",
     "django_filters",
+    "django_crontab",
     "rest_framework",
 ]
 
@@ -52,6 +54,19 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CRON_CLASSES = [
+    "api.cron.CallYoutubeApi",
+]
+
+CRONJOBS = [
+    (
+        "*/1 * * * *",
+        "youtubeApi.api.cron.CallYoutubeApi",
+        ">> ~/work/fam_pay_task/youtube_fetch_api/cron_job.log",
+    )
+]
+
 
 ROOT_URLCONF = "youtubeApi.urls"
 
@@ -116,6 +131,16 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+GOOGLE_API_KEYS = config(
+    "GOOGLE_API_KEYS", cast=lambda v: [s.strip() for s in v.split(",")]
+)
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "PAGE_SIZE": 10,
+}
 
 
 # Static files (CSS, JavaScript, Images)
