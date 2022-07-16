@@ -54,4 +54,5 @@ For visualization through a dashboard one may directly run the app locally and t
 ![Alt text]( ./images/search_results.png "Results")
 
 ### Cron Jobs
-![Alt text]( ./images/job.png "Jobs")
+`Currently active jobs in crontab:
+5f1c9752a7ba8d1289f085f51d5114c0 -> ('*/1 * * * *', 'youtubeApi.api.cron.CallYoutubeApi', '>> ~/work/fam_pay_task/youtube_fetch_api/cron_job.log')`
