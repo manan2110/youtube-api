@@ -16,6 +16,7 @@ Server calls the YouTube API continuously in background with a interval of 1 min
 
 ## How to use
 
+### On local system
 1. Clone the project
 2. As this project is based on Django, your system need to have proper python setup, refer [this](https://www.python.org/downloads/)
 3. Go the project through the terminal and install all dependencies by using typing `pip install -r requirements.txt` in the terminal
@@ -29,16 +30,28 @@ Server calls the YouTube API continuously in background with a interval of 1 min
 
 7. Run the server using `python manage.py runserver`
 
+### Using Docker
+1. Clone the project
+
+2. Run `sudo docker build -t youtube-api:v0 .`
+
+3. Run `sudo docker run youtube-api:v0 sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runcrons"`
+
+4. Run `sudo docker run -p 5000:5000 youtube-api:v0`
+
 ## Dashboard
 For visualization through a dashboard one may directly run the app locally and the get the UI provided through django-rest-framework
 
 ![Alt text]( ./images/dashboard.png "Dashboard")
 
+### Filters
 ![Alt text]( ./images/filters.png "Filter")
 
+### Search
 ![Alt text]( ./images/search.png "Search")
 
+### Search Results
 ![Alt text]( ./images/search_results.png "Results")
 
-Cron Jobs
+### Cron Jobs
 ![Alt text]( ./images/job.png "Jobs")
